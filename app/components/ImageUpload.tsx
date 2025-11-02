@@ -8,6 +8,9 @@ interface AnalysisResult {
   recommendations: string;
 }
 
+// Get API URL from environment variable
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+
 export default function ImageUpload() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -66,7 +69,7 @@ export default function ImageUpload() {
       const formData = new FormData();
       formData.append('file', selectedFile);
 
-      const response = await fetch('http://localhost:8000/api/analyze-image', {
+      const response = await fetch(`${API_URL}/api/analyze-image`, {
         method: 'POST',
         body: formData,
       });
